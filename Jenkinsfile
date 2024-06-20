@@ -3,25 +3,38 @@ pipeline {
     environment {
         GITHUB_USER = 'tobiolea97'
         CONTAINER_REGISTRY = "ghcr.io/${GITHUB_USER}/"
-        ARTIFACT_ID = readMavenPom().getArtifactId()
-        JAR_NAME = "${ARTIFACT_ID}-${BUILD_NUMBER}"
-        IMAGE_NAME = "${CONTAINER_REGISTRY}${ARTIFACT_ID}"
     }
 
     stages {
-        stage('Build Application') {
+        stage('Read POM and Set Environment Variables') {
             steps {
-                sh 'echo Performing Maven build: ${ARTIFACT_ID}'
+                script {
+                    def pom = readMavenPom file: 'pom.xml'
+                    env.ARTIFACT_ID = pom.artifactId
+                    env.JAR_NAME = "${pom.artifactId}-${env.BUILD_NUMBER}"
+                    env.IMAGE_NAME = "${env.CONTAINER_REGISTRY}${pom.artifactId}"
+                }
             }
         }
-        stage('Build COntainer Image') {
+        stage('Build Application') {
             steps {
-                sh 'echo Build container image: ${IMAGE_NAME}'
+                script {
+                    echo "Performing Maven build: ${env.ARTIFACT_ID}"
+                }
+            }
+        }
+        stage('Build Container Image') {
+            steps {
+                script {
+                    echo "Build container image: ${env.IMAGE_NAME}"
+                }
             }
         }
         stage('Publishing Image') {
             steps {
-                sh 'echo Publishing container image: ${CONTAINER_REGISTRY}'
+                script {
+                    echo "Publishing container image: ${env.CONTAINER_REGISTRY}"
+                }
             }
         }
     }
