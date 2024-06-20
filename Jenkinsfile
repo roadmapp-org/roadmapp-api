@@ -24,7 +24,8 @@ pipeline {
                 }
             }
             steps {
-                sh 'echo Performing Maven Build: ${ARTIFACT_ID}' 
+                sh 'echo Performing Maven Build: ${ARTIFACT_ID}'
+                sh 'chmod +x ./mvnw' // Add this line to set executable permission
                 sh './mvnw -DjarName=${JAR_NAME} clean verify'
             }
         }
