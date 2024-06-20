@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.binnacle</groupId>
-	<artifactId>api</artifactId>
+	<artifactId>roadmapp-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>api</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -106,6 +106,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>${jarName}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
