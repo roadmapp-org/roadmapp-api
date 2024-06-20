@@ -12,7 +12,9 @@ pipeline {
                     def pom = readMavenPom file: 'pom.xml'
                     env.ARTIFACT_ID = pom.artifactId
                     env.JAR_NAME = "${pom.artifactId}-${env.BUILD_NUMBER}"
+                    env.JAR_LOCATION = "target/${env.JAR_NAME}.jar"
                     env.IMAGE_NAME = "${env.CONTAINER_REGISTRY}${pom.artifactId}"
+                    env.IMAGE_TAG = "${env.IMAGE_NAME}:${env.BUILD_NUMBER}"
                 }
             }
         }
