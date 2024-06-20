@@ -31,12 +31,12 @@ pipeline {
         }
         
         stage('Build Container Image') {
-            steps {
-                script {
-                    echo "Build container image: ${env.IMAGE_NAME}"
-                }
-            }
-        }
+    	   steps {
+   	       		sh 'echo Building Container Image: ${IMAGE_NAME}'
+   	       		sh 'docker build --build-arg JAR_FILE=${JAR_LOCATION} -t ${IMAGE_TAG} .' 
+   	       }
+    	}
+        
         stage('Publishing Image') {
             steps {
                 script {
