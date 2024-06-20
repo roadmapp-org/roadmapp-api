@@ -17,12 +17,18 @@ pipeline {
             }
         }
         stage('Build Application') {
-            steps {
-                script {
-                    echo "Performing Maven build: ${env.ARTIFACT_ID}"
+            agent{
+                docker {
+                    image 'openjdk:11'
+                    reuseNode true
                 }
             }
+            steps {
+                sh 'echo Performing Maven Build: ${ARTIFACT_ID}' 
+                sh './mvnw -DjarName=${JAR_NAME} clean verify'
+            }
         }
+        
         stage('Build Container Image') {
             steps {
                 script {
