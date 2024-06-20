@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        GITHUB_USER = 'tobiolea97'
+        GITHUB_USER = 'roadmapp-org'
         CONTAINER_REGISTRY = "ghcr.io/${GITHUB_USER}/"
     }
 
