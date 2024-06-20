@@ -19,7 +19,7 @@ pipeline {
         stage('Build Application') {
             agent{
                 docker {
-                    image 'openjdk:11'
+                    image 'openjdk:17'
                     reuseNode true
                 }
             }
